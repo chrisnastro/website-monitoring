@@ -1,7 +1,7 @@
 export interface IRequest {
     url: string;
     config?: any;
-};
+}
 
 export const urls: IRequest[] = [
     { url: 'https://api.github.com/orgs/nodejs/repos' },
