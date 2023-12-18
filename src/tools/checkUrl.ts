@@ -1,16 +1,22 @@
 import axios from 'axios';
+import { Request } from './requests';
 
 //export allows the function to be used anywhere in the code//
-export const checkUrl = async (url: string, config = {} ): Promise<void> => {
+export const checkUrl = async (request: Request): Promise<void> => {
     try {
-        console.time(url);
-        const response = await axios.get(url, config);
-        await response.data;
+        console.time(request.url);
+        const response = await axios.get(request.url, request.config);
+        const body = await response.data;
         if (response.status === 200) {
-            console.log(url, "OK");
+            const compareResult = request.compare(body);
+            if (compareResult === true) {
+                console.log(request.url, "OK");
+            } else {
+                console.log(request.url, "NOT OK")
+            }
         }
-        console.timeEnd(url);
+        console.timeEnd(request.url);
     } catch (e: any) {
-        console.log(url, e.code);
+        console.log(request.url, e.code);
     }
 };

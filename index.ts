@@ -1,13 +1,13 @@
 import { checkUrl } from "./src/tools/checkUrl";
-import { IRequest, urls } from "./src/tools/requests";
+import { Request, requests } from "./src/tools/requests";
 
 
 
-const checkUrls = async (requests: IRequest[]) : Promise<void> => {
+const checkUrls = async (requests: Request[]) : Promise<void> => {
     //map operates on everything in the array, maps are quicker than for loops
    
-    await Promise.all(requests.map(async (r): Promise<void> => {
-        await checkUrl(r.url, r.config);
+    await Promise.all(requests.map(async (request): Promise<void> => {
+        await checkUrl(request);
 
     })
     );
@@ -15,4 +15,4 @@ const checkUrls = async (requests: IRequest[]) : Promise<void> => {
 
 
 
-checkUrls(urls);
+checkUrls(requests);
